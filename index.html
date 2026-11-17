@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#8b5cf6"><link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./styles.css"><title>EMIARY-CULTURE</title>
+</head>
+<body>
+<header><h1>EMIARY-CULTURE</h1><p>Inventario y ventas</p></header>
+<main>
+<section id="lock" class="panel"><h2>Acceso</h2><p>Configura un PIN de 4 dígitos para proteger el acceso básico.</p><input id="pin" inputmode="numeric" maxlength="4" placeholder="PIN de 4 dígitos"><button id="enter">Entrar / configurar PIN</button><small id="lockmsg"></small></section>
+<div id="app" hidden>
+<nav><button data-tab="inventory">Inventario</button><button data-tab="sales">Ventas</button><button data-tab="backup">Respaldo</button></nav>
+<section id="inventory" class="panel tab"><h2>Productos</h2>
+<form id="productForm"><input id="pname" required placeholder="Nombre del producto"><input id="pstock" type="number" min="0" required placeholder="Existencia"><input id="pretail" type="number" min="0" step=".01" required placeholder="Precio menudeo (MXN)"><input id="pwholesale" type="number" min="0" step=".01" placeholder="Precio mayoreo"><input id="pmin" type="number" min="1" value="1" placeholder="Mínimo mayoreo"><button>Agregar producto</button></form>
+<div id="products"></div></section>
+<section id="sales" class="panel tab" hidden><h2>Registrar venta</h2><form id="saleForm"><select id="saleProduct" required></select><input id="saleQty" type="number" min="1" value="1" required><select id="saleType"><option value="retail">Menudeo</option><option value="wholesale">Mayoreo</option></select><select id="salePay"><option>Efectivo</option><option>Transferencia bancaria</option></select><button>Guardar venta</button></form><h3>Ventas registradas</h3><div id="salesList"></div></section>
+<section id="backup" class="panel tab" hidden><h2>Respaldo</h2><p>Descarga una copia de tus productos y ventas. Guarda el archivo en un lugar seguro.</p><button id="export">Descargar respaldo</button><p><label>Restaurar respaldo <input id="importFile" type="file" accept="application/json"></label></p><button id="logout">Bloquear aplicación</button></section>
+</div>
+</main><footer>Los datos se guardan en este dispositivo.</footer><script src="./app.js"></script>
+</body></html>
