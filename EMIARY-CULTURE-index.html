@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#25213b">
+<title>EMIARY-CULTURE | Administración</title>
+<style>
+:root{--bg:#f4f3f8;--card:#fff;--ink:#242238;--muted:#77758a;--accent:#5b4b8a;--accent2:#8b78bd;--line:#e8e5ef;--good:#21845b;--bad:#b74757;--shadow:0 8px 24px #2920440c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--accent);color:white;font-weight:650}button.secondary{background:#eeebf5;color:var(--accent)}button.danger{background:#fff0f1;color:var(--bad)}button.small{padding:7px 10px;font-size:13px}.app{display:none;min-height:100vh}.top{background:#25213b;color:white;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-weight:850;letter-spacing:.5px}.brand small{display:block;font-weight:400;color:#c8c1dc;font-size:11px;letter-spacing:2px}.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 66px)}aside{background:#302b49;padding:18px 12px}.nav{display:grid;gap:6px}.nav button{background:transparent;text-align:left;color:#ded9eb;font-weight:550}.nav button.active,.nav button:hover{background:#51466f;color:white}.main{padding:24px;max-width:1400px;width:100%;margin:auto}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}h1{font-size:25px;margin:0}h2{font-size:17px;margin:0 0 14px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow);min-width:0}.metric{font-size:26px;font-weight:800;margin-top:6px}.metric-label{color:var(--muted);font-size:13px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-weight:700;background:#faf9fc}.table td strong{font-size:14px}.pill{display:inline-block;border-radius:30px;padding:4px 8px;background:#f0edf7;color:var(--accent);font-size:11px;font-weight:700}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.field textarea,input.search{width:100%;border:1px solid #dcd8e7;border-radius:9px;padding:10px;background:white;color:var(--ink)}.field textarea{min-height:70px}.full{grid-column:1/-1}.actions{display:flex;gap:6px;flex-wrap:wrap}.empty{text-align:center;padding:28px;color:var(--muted)}.notice{padding:12px 14px;border-radius:10px;background:#f1eef8;color:#50456e;font-size:13px;line-height:1.5}.login{min-height:100vh;display:grid;place-items:center;padding:18px;background:linear-gradient(135deg,#25213b,#66568f)}.loginbox{background:white;padding:28px;border-radius:18px;width:min(430px,100%);box-shadow:0 20px 60px #0003}.loginbox h1{font-size:22px}.loginbox .field{margin:14px 0}.hidden{display:none!important}.foot{padding:20px;text-align:center;color:var(--muted);font-size:11px}.taggood{color:var(--good);font-weight:700}.tagbad{color:var(--bad);font-weight:700}
+@media(max-width:850px){.layout{grid-template-columns:1fr}aside{padding:8px;overflow:auto}.nav{display:flex;min-width:max-content}.nav button{font-size:12px;padding:9px}.main{padding:15px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:13px}.metric{font-size:21px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.top{padding:13px}.pagehead h1{font-size:21px}}
+</style>
+</head>
+<body>
+<div id="setup" class="login hidden">
+ <div class="loginbox">
+  <div class="brand" style="color:#29243f;font-size:20px">EMIARY-CULTURE<small style="color:#8b78bd">SISTEMA DE ADMINISTRACIÓN</small></div>
+  <h1 style="margin-top:22px">Configura tu negocio</h1>
+  <p class="muted">Es la primera vez que abres esta versión. Crea tus claves. No compartas la clave de administrador.</p>
+  <div class="field"><label>Nombre del negocio</label><input id="bizname" value="EMIARY-CULTURE"></div>
+  <div class="field"><label>PIN de administrador (4 dígitos)</label><input id="newpin" inputmode="numeric" maxlength="4" type="password" placeholder="4 dígitos"></div>
+  <div class="field"><label>Contraseña de autorización de inventario (diferente al PIN)</label><input id="authpass" type="password" placeholder="Crea una contraseña"></div>
+  <div class="field"><label>Contraseña para cuenta de empleado</label><input id="staffpass" type="password" placeholder="Opcional, puedes crearla después"></div>
+  <button style="width:100%" onclick="finishSetup()">Crear sistema</button>
+  <p class="muted" style="font-size:11px">Las claves se guardan en este dispositivo. Esta versión inicial no ofrece recuperación automática de claves.</p>
+ </div>
+</div>
+<div id="login" class="login hidden">
+ <div class="loginbox">
+  <div class="brand" style="color:#29243f;font-size:20px">EMIARY-CULTURE<small style="color:#8b78bd">SISTEMA DE ADMINISTRACIÓN</small></div>
+  <h1 style="margin-top:22px">Iniciar sesión</h1>
+  <div class="field"><label>Tipo de usuario</label><select id="loginrole"><option value="admin">Administrador</option><option value="employee">Empleado</option></select></div>
+  <div class="field"><label id="loginlabel">PIN de administrador</label><input id="loginpass" type="password" inputmode="numeric" placeholder="Ingresa tu clave"></div>
+  <button style="width:100%" onclick="doLogin()">Entrar</button>
+  <p id="loginerror" class="tagbad"></p>
+ </div>
+</div>
+<div id="app" class="app">
+ <header class="top"><div class="brand">EMIARY-CULTURE<small id="bizsubtitle">ADMINISTRACIÓN DE NEGOCIO</small></div><div class="row"><span id="userbadge" class="pill" style="background:#51466f;color:white"></span><button class="secondary small" onclick="logout()">Cerrar sesión</button></div></header>
+ <div class="layout">
+  <aside><nav class="nav" id="nav">
+   <button data-page="home" class="active" onclick="go('home')">▦ Panel principal</button>
+   <button data-page="inventory" onclick="go('inventory')">▤ Inventario</button>
+   <button data-page="sales" onclick="go('sales')">＋ Ventas</button>
+   <button data-page="expenses" onclick="go('expenses')">− Gastos</button>
+   <button data-page="suppliers" onclick="go('suppliers')">♧ Proveedores</button>
+   <button data-page="customers" onclick="go('customers')">♙ Clientes</button>
+   <button data-page="reports" onclick="go('reports')">▥ Reportes</button>
+   <button data-page="history" onclick="go('history')">◷ Historial</button>
+   <button data-page="settings" onclick="go('settings')">⚙ Configuración</button>
+  </nav></aside>
+  <main class="main" id="content"></main>
+ </div>
+ <div class="foot">EMIARY-CULTURE · Moneda MXN · Guarda respaldos con frecuencia</div>
+</div>
+<script>
+const KEY='emiary_culture_v2';
+let db,role='admin',page='home';
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(Number(n)||0);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{db=JSON.parse(localStorage.getItem(KEY))}catch(e){db=null} if(!db){$('setup').classList.remove('hidden')}else showLogin()}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function finishSetup(){
+ let pin=$('newpin').value,auth=$('authpass').value,staff=$('staffpass').value;
+ if(!/^\d{4}$/.test(pin)){alert('El PIN debe tener exactamente 4 números.');return}
+ if(auth.length<6){alert('La contraseña de autorización debe tener al menos 6 caracteres.');return}
+ if(staff && staff.length<6){alert('La contraseña del empleado debe tener al menos 6 caracteres.');return}
+ db={name:$('bizname').value.trim()||'EMIARY-CULTURE',pin,auth,staff:staff||'',products:[],sales:[],expenses:[],suppliers:[],customers:[],history:[]};
+ save();$('setup').classList.add('hidden');showLogin()
+}
+function showLogin(){$('login').classList.remove('hidden');$('loginrole').onchange=()=>{$('loginlabel').textContent=$('loginrole').value==='admin'?'PIN de administrador':'Contraseña de empleado'};$('loginrole').dispatchEvent(new Event('change'))}
+function doLogin(){
+ let r=$('loginrole').value,p=$('loginpass').value;
+ if(r==='admin'&&p===db.pin){role='admin'}else if(r==='employee'&&db.staff&&p===db.staff){role='employee'}else{$('loginerror').textContent='Clave incorrecta o cuenta de empleado no configurada.';return}
+ $('login').classList.add('hidden');$('app').style.display='block';$('bizsubtitle').textContent=db.name.toUpperCase()+' · ADMINISTRACIÓN';$('userbadge').textContent=role==='admin'?'ADMINISTRADOR':'EMPLEADO';go('home')
+}
+function logout(){$('app').style.display='none';$('loginpass').value='';$('loginerror').textContent='';showLogin()}
+function log(action,detail){db.history.unshift({date:new Date().toISOString(),user:role,action,detail});db.history=db.history.slice(0,1000);save()}
+function go(p){
+ if(role==='employee'&&!['home','inventory','sales'].includes(p)){alert('Tu cuenta no tiene permiso para entrar a esta sección.');return}
+ page=p;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render()
+}
+function adminOnly(){if(role!=='admin'){alert('Esta sección es exclusiva del administrador.');return false}return true}
+function inventoryAuth(){let p=prompt('Contraseña de autorización para modificar el inventario:');if(p===null)return false;if(p!==db.auth){alert('Contraseña incorrecta.');return false}return true}
+function render(){
+ document.querySelectorAll('.nav button').forEach(b=>{
+   b.classList.toggle('hidden',role==='employee'&&!['home','inventory','sales'].includes(b.dataset.page))
+ });
+ let c=$('content');
+ if(page==='home'){
+ let sales=db.sales.reduce((a,x)=>a+x.total,0),cost=db.sales.reduce((a,x)=>a+x.cost,0),exp=db.expenses.reduce((a,x)=>a+x.amount,0),profit=sales-cost-exp;
+ c.innerHTML=`<div class="pagehead"><div><h1>Panel principal</h1><div class="muted">Resumen general de ${esc(db.name)}</div></div><span class="pill">${new Date().toLocaleDateString('es-MX')}</span></div>
+ <div class="grid">
+ <div class="card"><div class="metric-label">Ventas acumuladas</div><div class="metric">${money(sales)}</div></div>
+ <div class="card"><div class="metric-label">Gastos registrados</div><div class="metric">${money(exp)}</div></div>
+ <div class="card"><div class="metric-label">Ganancia estimada</div><div class="metric">${money(profit)}</div></div>
+ <div class="card"><div class="metric-label">Productos en inventario</div><div class="metric">${db.products.reduce((a,x)=>a+x.stock,0)}</div></div></div>
+ <div class="card" style="margin-top:16px"><h2>Accesos rápidos</h2><div class="row"><button onclick="go('inventory')">Ver inventario</button><button onclick="go('sales')">Registrar venta</button><button class="secondary" onclick="go('expenses')">Registrar gasto</button></div><p class="notice" style="margin-top:14px">La ganancia estimada resta el costo de los productos vendidos y los gastos registrados. Registra correctamente el costo de compra de cada producto.</p></div>`;
+ }
+ if(page==='inventory')renderInventory(c);
+ if(page==='sales')renderSales(c);
+ if(page==='expenses')renderExpenses(c);
+ if(page==='suppliers')renderSuppliers(c);
+ if(page==='customers')renderCustomers(c);
+ if(page==='reports')renderReports(c);
+ if(page==='history')renderHistory(c);
+ if(page==='settings')renderSettings(c);
+}
+function renderInventory(c){
+ c.innerHTML=`<div class="pagehead"><div><h1>Inventario</h1><div class="muted">Productos, tallas, colores y existencias</div></div><div class="row"><input class="search" id="searchprod" placeholder="Buscar producto..." oninput="filterProducts()" style="width:190px"><button onclick="productForm()">＋ Nuevo producto</button></div></div>
+ <div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Producto</th><th>Código</th><th>Talla / color</th><th>Existencia</th><th>Costo</th><th>Precio</th><th>Acciones</th></tr></thead><tbody id="prodrows"></tbody></table></div></div>`;
+ fillProducts()
+}
+function fillProducts(){let q=($('searchprod')?.value||'').toLowerCase(),arr=db.products.filter(p=>(p.name+' '+p.code+' '+p.size+' '+p.color).toLowerCase().includes(q));$('prodrows').innerHTML=arr.length?arr.map(p=>`<tr><td><strong>${esc(p.name)}</strong><br><span class="muted">${esc(p.category)}</span></td><td>${esc(p.code)}</td><td>${esc(p.size)} / ${esc(p.color)}</td><td>${p.stock<=2?'<span class="tagbad">':''}${p.stock}${p.stock<=2?'</span>':''}</td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td><div class="actions"><button class="secondary small" onclick="productForm('${p.id}')">Editar</button><button class="danger small" onclick="deleteProduct('${p.id}')">Eliminar</button></div></td></tr>`).join(''):'<tr><td colspan="7" class="empty">No hay productos registrados.</td></tr>'}
+function filterProducts(){fillProducts()}
+function productForm(id=''){
+ if(role!=='admin'&&!inventoryAuth())return;
+ if(role==='admin'&&!inventoryAuth())return;
+ let p=db.products.find(x=>x.id===id)||{name:'',code:'',category:'Ropa',size:'',color:'',stock:0,cost:0,price:0};
+ let name=prompt('Nombre del producto:',p.name);if(name===null)return;if(!name.trim())return alert('Escribe el nombre.');
+ let code=prompt('Código o SKU:',p.code)||'',category=prompt('Categoría:',p.category)||'General',size=prompt('Talla:',p.size)||'',color=prompt('Color:',p.color)||'';
+ let stock=Number(prompt('Existencias:',p.stock));let cost=Number(prompt('Costo por pieza (MXN):',p.cost));let price=Number(prompt('Precio de venta (MXN):',p.price));
+ if([stock,cost,price].some(x=>!Number.isFinite(x)||x<0)){alert('Revisa cantidades y precios.');return}
+ if(id)Object.assign(p,{name:name.trim(),code,category,size,color,stock,cost,price});else db.products.push({id:crypto.randomUUID(),name:name.trim(),code,category,size,color,stock,cost,price});
+ log(id?'Editó producto':'Agregó producto',name);render()
+}
+function deleteProduct(id){if(!inventoryAuth())return;let p=db.products.find(x=>x.id===id);if(!p||!confirm('¿Eliminar '+p.name+'?'))return;db.products=db.products.filter(x=>x.id!==id);log('Eliminó producto',p.name);render()}
+function renderSales(c){
+ c.innerHTML=`<div class="pagehead"><div><h1>Ventas</h1><div class="muted">Registra ventas y descuenta existencias</div></div><button onclick="saleForm()">＋ Registrar venta</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Fecha</th><th>Producto</th><th>Cantidad</th><th>Pago</th><th>Total</th><th>Ganancia bruta</th></tr></thead><tbody>${db.sales.length?db.sales.map(s=>`<tr><td>${new Date(s.date).toLocaleString('es-MX')}</td><td>${esc(s.product)}</td><td>${s.qty}</td><td>${esc(s.payment)}</td><td>${money(s.total)}</td><td>${money(s.total-s.cost)}</td></tr>`).join(''):'<tr><td colspan="6" class="empty">Todavía no hay ventas.</td></tr>'}</tbody></table></div></div>`
+}
+function saleForm(){
+ let p=db.products;if(!p.length)return alert('Primero registra productos en el inventario.');
+ let list=p.map((x,i)=>`${i+1}. ${x.name} | stock ${x.stock} | ${money(x.price)}`).join('\n');let n=Number(prompt('Elige el número del producto:\n'+list));if(!Number.isInteger(n)||!p[n-1])return;let prod=p[n-1],qty=Number(prompt('Cantidad (disponible '+prod.stock+')','1'));if(!Number.isInteger(qty)||qty<1||qty>prod.stock)return alert('Cantidad no válida o sin existencias.');
+ let payment=prompt('Forma de pago: Efectivo o Transferencia','Efectivo');if(!payment)return;let total=qty*prod.price;let sale={id:crypto.randomUUID(),date:new Date().toISOString(),product:prod.name,productId:prod.id,qty,payment,total,cost:qty*prod.cost};prod.stock-=qty;db.sales.unshift(sale);log('Registró venta',`${qty} x ${prod.name} · ${money(total)}`);render()
+}
+function renderExpenses(c){c.innerHTML=`<div class="pagehead"><div><h1>Gastos</h1><div class="muted">Compras, envíos, empaques y otros gastos</div></div><button onclick="expenseForm()">＋ Registrar gasto</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Fecha</th><th>Concepto</th><th>Categoría</th><th>Importe</th></tr></thead><tbody>${db.expenses.length?db.expenses.map(x=>`<tr><td>${new Date(x.date).toLocaleDateString('es-MX')}</td><td>${esc(x.note)}</td><td>${esc(x.category)}</td><td>${money(x.amount)}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">No hay gastos registrados.</td></tr>'}</tbody></table></div></div>`}
+function expenseForm(){let note=prompt('Concepto del gasto:');if(!note)return;let category=prompt('Categoría: Compra, Envío, Empaque u Otro','Otro')||'Otro';let amount=Number(prompt('Importe en MXN:'));if(!Number.isFinite(amount)||amount<=0)return alert('Importe no válido.');db.expenses.unshift({date:new Date().toISOString(),note,category,amount});log('Registró gasto',`${note}: ${money(amount)}`);render()}
+function renderSuppliers(c){c.innerHTML=`<div class="pagehead"><div><h1>Proveedores</h1><div class="muted">Contactos y datos de proveedores</div></div><button onclick="supplierForm()">＋ Agregar proveedor</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Proveedor</th><th>Teléfono</th><th>Productos</th><th>Notas</th></tr></thead><tbody>${db.suppliers.length?db.suppliers.map(x=>`<tr><td><strong>${esc(x.name)}</strong></td><td>${esc(x.phone)}</td><td>${esc(x.items)}</td><td>${esc(x.notes)}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">No hay proveedores.</td></tr>'}</tbody></table></div></div>`}
+function supplierForm(){let name=prompt('Nombre del proveedor:');if(!name)return;let phone=prompt('Teléfono:')||'',items=prompt('Productos que vende:')||'',notes=prompt('Notas:')||'';db.suppliers.push({name,phone,items,notes});log('Agregó proveedor',name);render()}
+function renderCustomers(c){c.innerHTML=`<div class="pagehead"><div><h1>Clientes</h1><div class="muted">Directorio de clientes</div></div><button onclick="customerForm()">＋ Agregar cliente</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Nombre</th><th>Teléfono</th><th>Notas</th></tr></thead><tbody>${db.customers.length?db.customers.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${esc(x.notes)}</td></tr>`).join(''):'<tr><td colspan="3" class="empty">No hay clientes.</td></tr>'}</tbody></table></div></div>`}
+function customerForm(){let name=prompt('Nombre del cliente:');if(!name)return;let phone=prompt('Teléfono:')||'',notes=prompt('Notas:')||'';db.customers.push({name,phone,notes});log('Agregó cliente',name);render()}
+function renderReports(c){let now=new Date(),month=now.getMonth(),year=now.getFullYear(),ms=db.sales.filter(s=>{let d=new Date(s.date);return d.getMonth()===month&&d.getFullYear()===year}),me=db.expenses.filter(s=>{let d=new Date(s.date);return d.getMonth()===month&&d.getFullYear()===year}),sales=ms.reduce((a,x)=>a+x.total,0),cost=ms.reduce((a,x)=>a+x.cost,0),expenses=me.reduce((a,x)=>a+x.amount,0);c.innerHTML=`<div class="pagehead"><div><h1>Reportes</h1><div class="muted">Resumen del mes actual</div></div><button class="secondary" onclick="exportCSV()">Exportar ventas CSV</button></div><div class="grid"><div class="card"><div class="metric-label">Ventas del mes</div><div class="metric">${money(sales)}</div></div><div class="card"><div class="metric-label">Costo de mercancía vendida</div><div class="metric">${money(cost)}</div></div><div class="card"><div class="metric-label">Gastos del mes</div><div class="metric">${money(expenses)}</div></div><div class="card"><div class="metric-label">Ganancia estimada</div><div class="metric">${money(sales-cost-expenses)}</div></div></div><div class="card" style="margin-top:16px"><h2>Indicadores</h2><p>Ventas registradas: <strong>${ms.length}</strong></p><p>Unidades vendidas: <strong>${ms.reduce((a,x)=>a+x.qty,0)}</strong></p><p>Productos distintos: <strong>${new Set(ms.map(x=>x.productId)).size}</strong></p></div><p class="notice">Este resumen corresponde al mes actual. Para estados financieros formales, concilia los registros con tus comprobantes y movimientos bancarios.</p>`}
+function renderHistory(c){c.innerHTML=`<div class="pagehead"><div><h1>Historial</h1><div class="muted">Actividad reciente del sistema</div></div></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Fecha</th><th>Usuario</th><th>Acción</th><th>Detalle</th></tr></thead><tbody>${db.history.length?db.history.map(x=>`<tr><td>${new Date(x.date).toLocaleString('es-MX')}</td><td>${esc(x.user)}</td><td>${esc(x.action)}</td><td>${esc(x.detail)}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">Aún no hay movimientos.</td></tr>'}</tbody></table></div></div>`}
+function renderSettings(c){c.innerHTML=`<div class="pagehead"><div><h1>Configuración</h1><div class="muted">Usuarios, seguridad y respaldos</div></div></div>
+ <div class="card"><h2>Usuarios</h2><p>Administrador: acceso completo.</p><p>Empleado: acceso a ventas y consulta. No puede entrar a configuración, reportes ni historial.</p><button class="secondary" onclick="changeStaff()">Configurar contraseña de empleado</button></div>
+ <div class="card" style="margin-top:14px"><h2>Seguridad de inventario</h2><p>La contraseña de autorización es independiente del PIN de administrador.</p><button class="secondary" onclick="changeAuth()">Cambiar contraseña de autorización</button><button class="secondary" onclick="changePin()" style="margin-left:6px">Cambiar PIN administrador</button></div>
+ <div class="card" style="margin-top:14px"><h2>Respaldo de datos</h2><p class="muted">Descarga un archivo para guardar tus productos, ventas y registros. Guárdalo en un lugar seguro.</p><div class="row"><button onclick="backup()">Descargar respaldo</button><button class="secondary" onclick="$('restorefile').click()">Restaurar respaldo</button><input id="restorefile" class="hidden" type="file" accept="application/json" onchange="restore(event)"></div></div>
+ <div class="notice" style="margin-top:14px"><strong>Conexión entre dispositivos:</strong> esta primera versión guarda datos en el dispositivo actual. Para sincronizar automáticamente entre celular y computadora se necesita configurar una base de datos en la nube y cuentas seguras. No está activada todavía.</div>`;
+}
+function changeStaff(){if(!adminOnly())return;let p=prompt('Nueva contraseña de empleado (mínimo 6 caracteres):');if(p===null)return;if(p.length<6)return alert('Debe tener al menos 6 caracteres.');db.staff=p;save();log('Cambió clave de empleado','');alert('Contraseña de empleado actualizada.')}
+function changeAuth(){if(!adminOnly())return;let p=prompt('Nueva contraseña de autorización (mínimo 6 caracteres):');if(p===null)return;if(p.length<6)return alert('Debe tener al menos 6 caracteres.');db.auth=p;save();log('Cambió clave de autorización','');alert('Contraseña actualizada.')}
+function changePin(){if(!adminOnly())return;let p=prompt('Nuevo PIN de 4 dígitos:');if(p===null)return;if(!/^\d{4}$/.test(p))return alert('Debe contener 4 números.');db.pin=p;save();log('Cambió PIN administrador','');alert('PIN actualizado.')}
+function backup(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='EMIARY-CULTURE-respaldo-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);log('Descargó respaldo','')}
+function restore(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.products||!x.sales||!x.pin||!x.auth)throw Error();if(!confirm('Restaurar reemplazará los datos actuales. ¿Continuar?'))return;db=x;save();alert('Respaldo restaurado.');go('home')}catch(err){alert('El archivo no parece ser un respaldo válido de EMIARY-CULTURE.')}};r.readAsText(f)}
+function exportCSV(){let rows=[['Fecha','Producto','Cantidad','Pago','Total MXN','Costo MXN'],...db.sales.map(s=>[s.date,s.product,s.qty,s.payment,s.total,s.cost])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='EMIARY-CULTURE-ventas.csv';a.click();URL.revokeObjectURL(a.href)}
+load();
+</script>
+</body>
+</html>
